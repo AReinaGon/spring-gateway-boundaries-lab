@@ -1,0 +1,24 @@
+services:
+  upstream:
+    cpus: 4.0
+    mem_limit: 256m
+    healthcheck:
+      disable: true
+    ports:
+      - "127.0.0.1:${UPSTREAM_PORT:-18080}:8080"
+  native:
+    depends_on:
+      upstream:
+        condition: service_started
+    cpus: 1.0
+    mem_limit: 512m
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms128m -Xmx256m -XX:ActiveProcessorCount=2 -Dlab.instrumentation=false -Xlog:gc:file=/tmp/lab-gc.log:uptimemillis"
+  mapped:
+    depends_on:
+      upstream:
+        condition: service_started
+    cpus: 1.0
+    mem_limit: 512m
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms128m -Xmx256m -XX:ActiveProcessorCount=2 -Dlab.instrumentation=false -Xlog:gc:file=/tmp/lab-gc.log:uptimemillis"

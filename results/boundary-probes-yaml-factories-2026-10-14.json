@@ -1,0 +1,104 @@
+{
+  "execution_java": "openjdk 21.0.7 2025-04-15 LTS",
+  "target_release": 21,
+  "cases_executed": 24,
+  "errors": 0,
+  "experiments": [
+    {
+      "mode": "baseline",
+      "project": "without-mappers",
+      "cases": 6,
+      "classpath": "generated classes only; no external libraries",
+      "changed_production_files_in_copy": [],
+      "changed_adapters": [],
+      "host_sha256": "3dd076096ef8f21d645092034abb93b6d3493d8da49e0449b8781279eb24631a",
+      "reused_production_types": [
+        "Rules.java"
+      ],
+      "output": [
+        "0:200:/inspect/catalog?tag=a&tag=b:{X-Lab-Action=[write], X-Lab-Subject=[bob], X-Note=[one, two], X-Workspace=[alpha]}",
+        "1:400:/inspect/catalog?tag=a&tag=b:rejected",
+        "2:401:/inspect/catalog?tag=a&tag=b:rejected",
+        "3:403:/inspect/catalog?tag=a&tag=b:rejected",
+        "4:413:/inspect/catalog?tag=a&tag=b:rejected",
+        "5:403:/inspect/catalog?tag=a&tag=b:rejected"
+      ]
+    },
+    {
+      "mode": "baseline",
+      "project": "with-mappers",
+      "cases": 6,
+      "classpath": "generated classes only; no external libraries",
+      "changed_production_files_in_copy": [],
+      "changed_adapters": [],
+      "host_sha256": "d2fec0b6b441bc52ecbed6ad5a826522074cc0758df7b737f11f1ad0c9c31322",
+      "reused_production_types": [
+        "Rules.java",
+        "RequestSnapshot.java",
+        "HeaderUpdate.java",
+        "MappedRules.java"
+      ],
+      "output": [
+        "0:200:/inspect/catalog?tag=a&tag=b:{X-Lab-Action=[write], X-Lab-Subject=[bob], X-Note=[one, two], X-Workspace=[alpha]}",
+        "1:400:/inspect/catalog?tag=a&tag=b:rejected",
+        "2:401:/inspect/catalog?tag=a&tag=b:rejected",
+        "3:403:/inspect/catalog?tag=a&tag=b:rejected",
+        "4:413:/inspect/catalog?tag=a&tag=b:rejected",
+        "5:403:/inspect/catalog?tag=a&tag=b:rejected"
+      ]
+    },
+    {
+      "mode": "allow-delete",
+      "project": "without-mappers",
+      "cases": 6,
+      "classpath": "generated classes only; no external libraries",
+      "changed_production_files_in_copy": [
+        "infrastructure/Rules.java"
+      ],
+      "changed_adapters": [],
+      "host_sha256": "3dd076096ef8f21d645092034abb93b6d3493d8da49e0449b8781279eb24631a",
+      "reused_production_types": [
+        "Rules.java"
+      ],
+      "output": [
+        "0:200:/inspect/catalog?tag=a&tag=b:{X-Lab-Action=[write], X-Lab-Subject=[bob], X-Note=[one, two], X-Workspace=[alpha]}",
+        "1:400:/inspect/catalog?tag=a&tag=b:rejected",
+        "2:401:/inspect/catalog?tag=a&tag=b:rejected",
+        "3:403:/inspect/catalog?tag=a&tag=b:rejected",
+        "4:413:/inspect/catalog?tag=a&tag=b:rejected",
+        "5:200:/inspect/catalog?tag=a&tag=b:{X-Lab-Action=[delete], X-Lab-Subject=[bob], X-Note=[one, two], X-Workspace=[alpha]}"
+      ]
+    },
+    {
+      "mode": "allow-delete",
+      "project": "with-mappers",
+      "cases": 6,
+      "classpath": "generated classes only; no external libraries",
+      "changed_production_files_in_copy": [
+        "infrastructure/Rules.java"
+      ],
+      "changed_adapters": [],
+      "host_sha256": "d2fec0b6b441bc52ecbed6ad5a826522074cc0758df7b737f11f1ad0c9c31322",
+      "reused_production_types": [
+        "Rules.java",
+        "RequestSnapshot.java",
+        "HeaderUpdate.java",
+        "MappedRules.java"
+      ],
+      "output": [
+        "0:200:/inspect/catalog?tag=a&tag=b:{X-Lab-Action=[write], X-Lab-Subject=[bob], X-Note=[one, two], X-Workspace=[alpha]}",
+        "1:400:/inspect/catalog?tag=a&tag=b:rejected",
+        "2:401:/inspect/catalog?tag=a&tag=b:rejected",
+        "3:403:/inspect/catalog?tag=a&tag=b:rejected",
+        "4:413:/inspect/catalog?tag=a&tag=b:rejected",
+        "5:200:/inspect/catalog?tag=a&tag=b:{X-Lab-Action=[delete], X-Lab-Subject=[bob], X-Note=[one, two], X-Workspace=[alpha]}"
+      ]
+    }
+  ],
+  "limits": [
+    "Synchronous metadata host, not an HTTP server or a replacement for the reactive gateway",
+    "Native host implements header orchestration; mapped host reuses processors but still applies patches",
+    "The same authorization-policy change is contained in Rules in both variants",
+    "No estimate of migration effort, maintenance hours or global isolation score"
+  ]
+}
