@@ -1,0 +1,13 @@
+**/target/
+results/generated/
+results/*
+!results/*yaml-factories-2026-10-14*.json
+!results/*yaml-factories-2026-10-14*.jsonl.gz
+tools/http_load.py
+tools/summarize_performance.py
+**/__pycache__/
+*.pyc
+.idea/
+*.iml
+*.log
+docs/

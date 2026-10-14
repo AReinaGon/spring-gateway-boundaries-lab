@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: gateway-without-mappers
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: fictional-chain
+              uri: ${lab.upstream-url:http://localhost:18080}
+              predicates:
+                - Path=/inspect/**
+              filters:
+                - BodyLimit
+                - NormalizeWorkspace
+                - TokenIdentity
+                - AuthorizeOperation
