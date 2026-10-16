@@ -1,3 +1,1 @@
-# Preserve generated evidence bytes, including JMH's trailing blank lines.
-results/** -text
-results/jmh*.json whitespace=-blank-at-eof
+* text=auto

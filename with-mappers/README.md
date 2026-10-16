@@ -4,7 +4,7 @@ A self-contained Spring Cloud Gateway Server WebFlux application. It owns its pr
 
 This example extends the architecture boundary to metadata-transformation processors. The filters translate current request metadata to immutable snapshots, run processors independent of Spring and apply header updates to the current exchange. A second host can reuse the processors but still owns patch application. The contract is independent of Spring types and still expresses HTTP concepts; reactive body handling and filter execution remain tied to the integration.
 
-The root laboratory measures the selected representation's runtime costs and demonstrates its additional reuse property. Whether those properties justify the contract depends on your system. This is an experiment about pragmatism in choosing boundaries, not a claim that adding request DTOs creates a complete hexagonal architecture.
+The root laboratory compares the two boundary placements. Java isolation tests exercise rules and processors in a second host without Spring; an optional JMH module can measure the in-process chain. Whether that additional contract is useful depends on your system; adding request DTOs does not create a complete hexagonal architecture.
 
 ## YAML route and filter factories
 
@@ -20,7 +20,7 @@ Requirements: JDK 21+, Maven and Docker with Linux containers. Run from this dir
 mvn -B clean verify
 ```
 
-Testcontainers starts the echo destination using this project's test resource. A missing Docker runtime fails integration tests. To explicitly run only in-process tests, use `mvn -B -DskipITs=true clean verify`.
+Testcontainers builds a Java echo destination using this project's own test resources. The suite also compiles and executes rules and processors without Spring using an empty external classpath, including a policy change in a temporary source copy. A missing Docker runtime fails integration tests. To explicitly run only in-process tests, use `mvn -B -DskipITs=true clean verify`.
 
 ## Run independently
 

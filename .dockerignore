@@ -1,3 +1,8 @@
 **/target
 .git
-results/generated
+results
+tools
+docs
+evidence
+evidencias
+**/*.py
