@@ -1,0 +1,8 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.areina</groupId><artifactId>spring-gateway-boundaries-lab</artifactId><version>1.0.0-SNAPSHOT</version><packaging>pom</packaging>
+  <name>spring-gateway-boundaries-lab</name>
+  <description>Two independently buildable gateway projects with different boundary placements.</description>
+  <modules><module>without-mappers</module><module>with-mappers</module></modules>
+  <profiles><profile><id>benchmark</id><modules><module>benchmark</module></modules></profile></profiles>
+</project>

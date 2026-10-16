@@ -1,0 +1,15 @@
+**/target/
+# Local experiments, evidence and editorial material
+/results/
+/tools/
+/docs/
+/evidence/
+/evidencias/
+/artifacts/
+/compose.perf.yaml
+**/*.py
+**/__pycache__/
+*.pyc
+.idea/
+*.iml
+*.log

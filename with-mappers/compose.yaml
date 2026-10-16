@@ -1,0 +1,17 @@
+services:
+  upstream:
+    build:
+      context: ./src/test/resources
+      dockerfile: echo.Dockerfile
+  gateway:
+    image: spring-gateway-boundaries-lab:with-mappers
+    build: .
+    ports:
+      - "127.0.0.1:${GATEWAY_PORT:-18082}:8080"
+    environment:
+      LAB_UPSTREAM_URL: http://upstream:8080
+      SPRING_MAIN_BANNER_MODE: "off"
+      LOGGING_LEVEL_ROOT: WARN
+    depends_on:
+      upstream:
+        condition: service_healthy

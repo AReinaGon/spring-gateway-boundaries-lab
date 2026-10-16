@@ -1,0 +1,8 @@
+**/target
+.git
+results
+tools
+docs
+evidence
+evidencias
+**/*.py
