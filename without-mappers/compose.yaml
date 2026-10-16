@@ -1,14 +1,8 @@
 services:
   upstream:
-    image: python:3.12-alpine
-    command: ["python", "/srv/echo.py"]
-    volumes:
-      - ./src/test/resources/echo.py:/srv/echo.py:ro
-    healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"]
-      interval: 2s
-      timeout: 2s
-      retries: 15
+    build:
+      context: ./src/test/resources
+      dockerfile: echo.Dockerfile
   gateway:
     image: spring-gateway-boundaries-lab:without-mappers
     build: .

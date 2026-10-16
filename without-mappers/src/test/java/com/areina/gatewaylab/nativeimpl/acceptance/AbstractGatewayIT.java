@@ -20,13 +20,14 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.MountableFile;
+import org.testcontainers.images.builder.ImageFromDockerfile;
 import reactor.core.publisher.Flux;
 
 public abstract class AbstractGatewayIT {
-    private static final GenericContainer<?> BACKEND = new GenericContainer<>("python:3.12-alpine")
-            .withCopyFileToContainer(MountableFile.forClasspathResource("echo.py"), "/srv/echo.py")
-            .withCommand("python", "/srv/echo.py").withExposedPorts(8080)
+    private static final GenericContainer<?> BACKEND = new GenericContainer<>(new ImageFromDockerfile()
+            .withFileFromClasspath("Dockerfile", "echo.Dockerfile")
+            .withFileFromClasspath("EchoServer.java", "EchoServer.java"))
+            .withExposedPorts(8080)
             .waitingFor(Wait.forHttp("/health").forStatusCode(200));
     static { BACKEND.start(); }
     @LocalServerPort int port;

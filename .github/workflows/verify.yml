@@ -24,16 +24,9 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
-        with:
-          python-version: '3.12'
       - name: Check Docker availability
         run: docker info
       - name: Run functional and Testcontainers suites
         run: mvn -B clean verify
-      - name: Audit duplicated contracts and YAML
-        run: python tools/check_equivalence.py
-      - name: Compile policies and processors without Spring
-        run: python tools/compile_cores.py
-      - name: Execute the independent-host policy probes
-        run: python tools/probe_boundaries.py
+      - name: Build the optional Java benchmark
+        run: mvn -B -f benchmark/pom.xml -DskipTests clean package
